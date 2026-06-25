@@ -1,0 +1,11 @@
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.env
+uploads/
+test_results.json
+.pytest_cache/
+dist/
+build/
+.gemini/

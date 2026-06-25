@@ -1,0 +1,1 @@
+{"bill_type":"Electricity","provider":"Mahavitaran","consumer_name":"MRS. SHRUTI M. NANDODE&MAYUR N. NANDODE","units_consumed":{"value":146,"unit":"kWh"},"amount":{"due_amount":1500.00},"bill_date":"15-05-2026","confidence":1.0}
