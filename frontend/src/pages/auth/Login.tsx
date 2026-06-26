@@ -82,22 +82,23 @@ const Login = () => {
     }
   };
 
-  const handleDemoAdminLogin = () => {
-    const fakeAdminUser = {
-      id: 'demo-admin-001',
-      email: 'demo.admin@ecosense.ai',
-      full_name: 'Demo Admin',
-      role: 'super_admin' as const,
-      is_active: true,
-      created_at: new Date().toISOString(),
-    };
-    const fakeTokens = {
-      access_token: 'demo-admin-token',
-      refresh_token: 'demo-admin-refresh',
-      token_type: 'bearer',
-    };
-    loginAction(fakeTokens, fakeAdminUser as any);
-    navigate('/admin');
+  const handleDemoAdminLogin = async () => {
+    const adminEmail = 'aachalpandey2611@gmail.com';
+    const adminPassword = 'Admin@123';
+    setError('');
+    setIsLoading(true);
+    try {
+      const tokens = await authApi.login({ email: adminEmail, password: adminPassword });
+      useAuthStore.getState().setTokens(tokens);
+      const user = await authApi.getMe();
+      loginAction(tokens, user);
+      navigate('/admin');
+    } catch (err: any) {
+      const detail = err.response?.data?.detail;
+      setError(typeof detail === 'string' ? detail : 'Admin login failed. Backend may be unavailable.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const tabs = [
