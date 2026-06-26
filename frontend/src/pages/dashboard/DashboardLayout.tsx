@@ -1,4 +1,4 @@
-import { LogOut, LayoutDashboard, Settings, User, Plus, Camera, Sparkles, Target, Users, Brain, Shield } from 'lucide-react';
+import { LogOut, LayoutDashboard, Settings, User, Plus, Camera, Sparkles, Target, Users, Brain, Shield, Home } from 'lucide-react';
 import { Link, useNavigate, useLocation, Outlet } from 'react-router-dom';
 
 import { useAuthStore } from '@/store/authStore';
@@ -104,6 +104,16 @@ export default function DashboardLayout() {
           })}
         </nav>
         <div className="p-4 border-t border-[var(--border)] space-y-1">
+          {/* Home button */}
+          <a
+            href="https://hack22-seven.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-4 py-3 text-[var(--muted-foreground)] hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
+          >
+            <Home className="w-5 h-5" />
+            <span className="font-medium">Home</span>
+          </a>
           {user && (user.role === 'admin' || user.role === 'super_admin') && (
             <Link
               to="/admin"
@@ -145,6 +155,17 @@ export default function DashboardLayout() {
             {navItems.find((n) => isActive(n.to, n.exact)) ? t(language, navItems.find((n) => isActive(n.to, n.exact))!.labelKey as TranslationKey) : t(language, 'dashboard')}
           </h1>
           <div className="flex items-center gap-4">
+            {/* Home button in header */}
+            <a
+              href="https://hack22-seven.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 transition-all duration-200"
+              title="Go to Home"
+            >
+              <Home className="w-4 h-4" />
+              <span>Home</span>
+            </a>
             <Link to="/dashboard/track" className="hidden sm:block">
               <Button size="sm">
                 <Plus className="w-4 h-4 mr-2" /> {t(language, 'logActivity')}

@@ -5,7 +5,7 @@ import { Logo } from '@/components/ui/Logo';
 import {
   Leaf, Zap, Droplets, Car, Trash2, Globe, Brain,
   TrendingUp, TrendingDown, Target, MapPin, Award,
-  ChevronRight, Sparkles, Wind, TreePine
+  ChevronRight, Sparkles, Wind, TreePine, Home
 } from 'lucide-react';
 
 // ── Static demo data displayed on left panel ──────────────────────────────
@@ -389,6 +389,18 @@ const AuthLayout = () => {
 
       {/* ── RIGHT: Login Form ─────────────────────────────────────────────── */}
       <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 relative">
+        {/* Home button top-right */}
+        <div className="absolute top-5 right-6">
+          <a
+            href="https://hack22-seven.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm transition-all duration-200"
+          >
+            <Home className="w-4 h-4" />
+            <span>Home</span>
+          </a>
+        </div>
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden mb-8 flex justify-center">
