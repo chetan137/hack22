@@ -14,10 +14,10 @@ export const ProtectedRoute = () => {
     return <Navigate to="/onboarding" replace />;
   }
 
-  // If completed onboarding but trying to access onboarding, go to dashboard
-  if (user && user.has_completed_onboarding && window.location.pathname === '/onboarding') {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // DEMO MODE: Auto-skip disabled — onboarding always shows regardless of completion status
+  // if (user && user.has_completed_onboarding && window.location.pathname === '/onboarding') {
+  //   return <Navigate to="/dashboard" replace />;
+  // }
 
   return <Outlet />;
 };
