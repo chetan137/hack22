@@ -30,7 +30,7 @@ const Login = () => {
       if (activeTab === 'admin' || user.role === 'admin' || user.role === 'super_admin') {
         navigate('/admin');
       } else {
-        navigate('/dashboard');
+        navigate('/onboarding');
       }
     } catch (err: any) {
       const detail = err.response?.data?.detail;
@@ -73,7 +73,7 @@ const Login = () => {
       useAuthStore.getState().setTokens(tokens);
       const user = await authApi.getMe();
       loginAction(tokens, user);
-      navigate('/dashboard');
+      navigate('/onboarding');
     } catch (err: any) {
       const detail = err.response?.data?.detail;
       setError(typeof detail === 'string' ? detail : 'Demo login failed.');

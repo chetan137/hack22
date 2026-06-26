@@ -17,7 +17,9 @@ import app.models  # Ensures all models are registered with Base
 
 from sqlalchemy import select
 from app.models.user import User
+from app.models.community_event import CommunityEvent
 import bcrypt
+from datetime import datetime, timedelta
 
 async def seed_demo_admin(db):
     result = await db.execute(select(User).where(User.email == "demo_admin@ecosense.ai"))
@@ -33,16 +35,41 @@ async def seed_demo_admin(db):
         db.add(demo_admin)
         await db.commit()
 
+async def seed_community_events(db):
+    result = await db.execute(select(CommunityEvent).limit(1))
+    if not result.scalars().first():
+        event1 = CommunityEvent(
+            title="Versova Beach Cleanup",
+            type="cleanup",
+            latitude=19.1351,
+            longitude=72.8146,
+            date=datetime.utcnow() + timedelta(days=2),
+            description="Join us for a massive beach cleanup drive this weekend.",
+            points_reward=500
+        )
+        event2 = CommunityEvent(
+            title="Sanjay Gandhi Park Tree Plantation",
+            type="plantation",
+            latitude=19.2140,
+            longitude=72.9106,
+            date=datetime.utcnow() + timedelta(days=5),
+            description="Planting 1000 saplings to restore the green cover.",
+            points_reward=300
+        )
+        db.add_all([event1, event2])
+        await db.commit()
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Ensure all tables exist (fixes 500 crashes on Render for new models)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-    # Seed default emission factors and demo admin
+    # Seed default emission factors, demo admin, and community events
     async with async_session_factory() as db:
         await seed_emission_factors(db)
         await seed_demo_admin(db)
+        await seed_community_events(db)
     yield
     # Shutdown logic
 

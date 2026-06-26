@@ -44,12 +44,12 @@ export default function OnboardingWizard() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [score, setScore] = useState<number | null>(null);
 
-  // Already onboarded — go directly to dashboard
-  useEffect(() => {
-    if (user?.has_completed_onboarding) {
-      navigate('/dashboard', { replace: true });
-    }
-  }, [user, navigate]);
+  // Already onboarded — go directly to dashboard (Disabled for demo purposes so it always shows)
+  // useEffect(() => {
+  //   if (user?.has_completed_onboarding) {
+  //     navigate('/dashboard', { replace: true });
+  //   }
+  // }, [user, navigate]);
 
   const { control, handleSubmit, watch, formState: { errors } } = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingSchema),
