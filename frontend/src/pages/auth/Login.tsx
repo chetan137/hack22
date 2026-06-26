@@ -83,7 +83,7 @@ const Login = () => {
   };
 
   const handleDemoAdminLogin = async () => {
-    const adminEmail = 'aachalpandey2611@gmail.com';
+    const adminEmail = 'demo_admin@ecosense.ai';
     const adminPassword = 'Admin@123';
     setError('');
     setIsLoading(true);
@@ -99,7 +99,7 @@ const Login = () => {
       const demoAdmin = {
         id: 'demo-admin-001',
         email: adminEmail,
-        full_name: 'Demo Admin (aachalpandey2611)',
+        full_name: 'Demo Admin',
         role: 'super_admin',
         is_active: true,
         created_at: new Date().toISOString(),
