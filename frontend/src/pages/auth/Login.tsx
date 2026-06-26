@@ -82,6 +82,24 @@ const Login = () => {
     }
   };
 
+  const handleDemoAdminLogin = () => {
+    const fakeAdminUser = {
+      id: 'demo-admin-001',
+      email: 'demo.admin@ecosense.ai',
+      full_name: 'Demo Admin',
+      role: 'super_admin' as const,
+      is_active: true,
+      created_at: new Date().toISOString(),
+    };
+    const fakeTokens = {
+      access_token: 'demo-admin-token',
+      refresh_token: 'demo-admin-refresh',
+      token_type: 'bearer',
+    };
+    loginAction(fakeTokens, fakeAdminUser as any);
+    navigate('/admin');
+  };
+
   const tabs = [
     { id: 'demo' as Tab, label: 'Demo Login', icon: <Zap className="w-4 h-4" /> },
     { id: 'admin' as Tab, label: 'Admin Login', icon: <Shield className="w-4 h-4" /> },
@@ -271,7 +289,21 @@ const Login = () => {
                 </button>
               </form>
 
-              <p className="mt-6 text-center text-xs text-slate-500">
+              {/* Demo Admin Access */}
+              <div className="mt-4 p-4 rounded-xl bg-purple-500/5 border border-purple-500/20">
+                <p className="text-xs text-purple-300 font-medium mb-2 text-center">⚡ Quick Demo Access</p>
+                <button
+                  type="button"
+                  onClick={handleDemoAdminLogin}
+                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 hover:border-purple-400/60"
+                >
+                  <Shield className="w-4 h-4" />
+                  Demo Admin Access (No Login Required)
+                </button>
+                <p className="text-xs text-slate-500 text-center mt-2">Instant access · Frontend only · No credentials needed</p>
+              </div>
+
+              <p className="mt-4 text-center text-xs text-slate-500">
                 Not an admin?{' '}
                 <button onClick={() => setActiveTab('demo')} className="text-brand-400 hover:text-brand-300 transition-colors font-medium">
                   Use Demo Login
