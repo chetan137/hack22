@@ -28,13 +28,14 @@ import AdminEvents from '../pages/admin/AdminEvents';
 import AdminEmissionFactors from '../pages/admin/AdminEmissionFactors';
 
 export const router = createBrowserRouter([
+  // Landing page — always accessible, even when logged in
+  {
+    path: '/',
+    element: <LandingPage />,
+  },
   {
     element: <PublicRoute />,
     children: [
-      {
-        path: '/',
-        element: <LandingPage />,
-      },
       {
         path: '/auth',
         element: <AuthLayout />,
