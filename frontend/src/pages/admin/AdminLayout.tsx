@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   LayoutDashboard, Users, BarChart3, FileText, CalendarDays,
-  Zap, LogOut, Shield, ChevronRight, Menu, X
+  Zap, LogOut, Shield, ChevronRight, Menu, X, Home
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
@@ -86,6 +86,13 @@ export default function AdminLayout() {
               {user?.role}
             </span>
           </div>
+          <a
+            href="https://hack22-seven.vercel.app"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 transition-all"
+          >
+            <Home className="w-4 h-4" />
+            Home
+          </a>
           <Link
             to="/dashboard"
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-slate-400 hover:text-white hover:bg-white/5 transition-all"
@@ -121,6 +128,13 @@ export default function AdminLayout() {
             <span className="text-white font-medium">{currentPage}</span>
           </div>
           <div className="ml-auto flex items-center gap-3">
+            <a
+              href="https://hack22-seven.vercel.app"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 transition-all"
+            >
+              <Home className="w-3.5 h-3.5" />
+              Home
+            </a>
             <span className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               Live

@@ -392,9 +392,7 @@ const AuthLayout = () => {
         {/* Home button top-right */}
         <div className="absolute top-5 right-6">
           <a
-            href="https://hack22-seven.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://hack22-seven.vercel.app"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm transition-all duration-200"
           >
             <Home className="w-4 h-4" />

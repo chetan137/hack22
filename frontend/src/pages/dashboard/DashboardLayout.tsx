@@ -106,9 +106,7 @@ export default function DashboardLayout() {
         <div className="p-4 border-t border-[var(--border)] space-y-1">
           {/* Home button */}
           <a
-            href="https://hack22-seven.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://hack22-seven.vercel.app"
             className="flex items-center gap-3 px-4 py-3 text-[var(--muted-foreground)] hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
           >
             <Home className="w-5 h-5" />
@@ -157,9 +155,7 @@ export default function DashboardLayout() {
           <div className="flex items-center gap-4">
             {/* Home button in header */}
             <a
-              href="https://hack22-seven.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="https://hack22-seven.vercel.app"
               className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 border border-emerald-500/20 transition-all duration-200"
               title="Go to Home"
             >
