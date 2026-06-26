@@ -5,6 +5,7 @@ export interface User {
   is_active: boolean;
   is_verified: boolean;
   has_completed_onboarding: boolean;
+  role: 'user' | 'admin' | 'super_admin';
   created_at: string;
   updated_at: string;
 }
@@ -66,4 +67,12 @@ export interface LeaderboardEntry {
   eco_score: number;
   level: number;
   rank: number;
+}
+export interface EnvironmentState {
+  ecoScore: number;
+  carbonEmissions: number;
+  airQuality: number;
+  renewableUsage: number;
+  trafficDensity: number;
+  treeCoverage: number;
 }

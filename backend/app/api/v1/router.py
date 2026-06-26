@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.v1 import auth, onboarding, activities, dashboard, carbon, ocr, coach, goals, community
+from app.api.v1 import auth, onboarding, activities, dashboard, carbon, ocr, coach, goals, community, prediction, gamification, admin
 
 api_router = APIRouter()
 api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
@@ -12,3 +12,6 @@ api_router.include_router(ocr.router, prefix="/ocr", tags=["ocr"])
 api_router.include_router(coach.router, prefix="/coach", tags=["coach"])
 api_router.include_router(goals.router, prefix="/goals", tags=["goals"])
 api_router.include_router(community.router, prefix="/community", tags=["community"])
+api_router.include_router(prediction.router, prefix="/prediction", tags=["prediction"])
+api_router.include_router(gamification.router, prefix="/gamification", tags=["gamification"])
+api_router.include_router(admin.router, prefix="/admin", tags=["admin"])

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Camera, Upload, CheckCircle, XCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,6 +9,8 @@ interface OCRResult {
   image_filename: string;
   raw_text: string;
   bill_type: string;
+  currency: string | null;        // ISO code e.g. "USD", "INR"
+  currency_symbol: string;        // Display symbol e.g. "$", "₹"
   amounts: { value: number; raw: string }[];
   units_consumed: { value: number; unit: string; raw: string }[];
   extracted_date: string | null;
@@ -131,9 +133,9 @@ export default function OCRAnalyzer() {
           <div className="h-10 w-10 rounded-xl bg-brand-500/20 flex items-center justify-center">
             <Camera className="h-5 w-5 text-brand-400" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Smart Bill Analyzer</h2>
+          <h2 className="text-2xl font-bold text-[var(--foreground)]">Smart Bill Analyzer</h2>
         </div>
-        <p className="text-slate-400 ml-13">
+        <p className="text-[var(--muted-foreground)] ml-13">
           Upload your utility bills or receipts — AI will extract the data and log an activity for you.
         </p>
       </div>
@@ -151,13 +153,13 @@ export default function OCRAnalyzer() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center"
+          className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-12 text-center"
         >
           <div className="mx-auto w-20 h-20 bg-brand-500/20 rounded-full flex items-center justify-center mb-6">
             <CheckCircle className="h-10 w-10 text-brand-400" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Activity Logged!</h2>
-          <p className="text-slate-400 mb-8">
+          <h2 className="text-2xl font-bold text-[var(--foreground)] mb-2">Activity Logged!</h2>
+          <p className="text-[var(--muted-foreground)] mb-8">
             Your bill has been processed and the activity added to your eco profile.
           </p>
           <Button onClick={resetAll} size="lg">Analyze Another Bill</Button>
@@ -165,8 +167,8 @@ export default function OCRAnalyzer() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Upload Panel */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Upload Document</h3>
+          <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 flex flex-col">
+            <h3 className="text-sm font-semibold text-[var(--foreground)] uppercase tracking-wider mb-4">Upload Document</h3>
 
             {!file ? (
               <div
@@ -174,24 +176,24 @@ export default function OCRAnalyzer() {
                 className={`flex-1 border-2 border-dashed rounded-xl flex flex-col items-center justify-center p-12 text-center cursor-pointer transition-colors min-h-[320px] ${
                   isDragActive
                     ? 'border-brand-500 bg-brand-500/5'
-                    : 'border-slate-700 hover:border-brand-500/50 hover:bg-slate-800/30'
+                    : 'border-slate-700 hover:border-brand-500/50 hover:bg-[var(--muted)]/30'
                 }`}
               >
                 <input {...getInputProps()} />
-                <Upload className="h-12 w-12 text-slate-600 mb-4" />
-                <p className="text-lg font-medium text-slate-300 mb-1">Drop your bill here</p>
-                <p className="text-sm text-slate-500">or click to browse</p>
-                <p className="text-xs text-slate-600 mt-4">PNG, JPG, WEBP · Max 10 MB</p>
+                <Upload className="h-12 w-12 text-[var(--muted-foreground)] mb-4" />
+                <p className="text-lg font-medium text-[var(--foreground)] mb-1">Drop your bill here</p>
+                <p className="text-sm text-[var(--muted-foreground)]">or click to browse</p>
+                <p className="text-xs text-[var(--muted-foreground)] mt-4">PNG, JPG, WEBP · Max 10 MB</p>
               </div>
             ) : (
               <div className="flex flex-col flex-1">
-                <div className="relative bg-slate-800 rounded-xl overflow-hidden min-h-[320px] flex items-center justify-center">
+                <div className="relative bg-[var(--muted)] rounded-xl overflow-hidden min-h-[320px] flex items-center justify-center">
                   <img src={preview!} alt="Bill Preview" className="max-w-full max-h-[480px] object-contain" />
                   <button
                     onClick={(e) => { e.stopPropagation(); resetAll(); }}
-                    className="absolute top-3 right-3 bg-slate-900/80 hover:bg-slate-700 p-1.5 rounded-full transition-colors"
+                    className="absolute top-3 right-3 bg-[var(--card)]/80 hover:bg-slate-700 p-1.5 rounded-full transition-colors"
                   >
-                    <XCircle className="h-5 w-5 text-slate-400" />
+                    <XCircle className="h-5 w-5 text-[var(--muted-foreground)]" />
                   </button>
                 </div>
                 {!ocrResult && (
@@ -210,59 +212,61 @@ export default function OCRAnalyzer() {
           </div>
 
           {/* Results Panel */}
-          <div className={`bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col transition-opacity ${!ocrResult ? 'opacity-40 pointer-events-none' : ''}`}>
-            <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Extracted Data</h3>
+          <div className={`bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 flex flex-col transition-opacity ${!ocrResult ? 'opacity-40 pointer-events-none' : ''}`}>
+            <h3 className="text-sm font-semibold text-[var(--foreground)] uppercase tracking-wider mb-4">Extracted Data</h3>
 
             {!ocrResult ? (
               <div className="flex-1 flex flex-col items-center justify-center min-h-[320px] text-center">
                 <Loader2 className="h-8 w-8 text-slate-700 mb-3" />
-                <p className="text-slate-600 text-sm">Results will appear here after analysis</p>
+                <p className="text-[var(--muted-foreground)] text-sm">Results will appear here after analysis</p>
               </div>
             ) : (
               <div className="flex-1 flex flex-col">
                 {/* Metadata badges */}
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="bg-slate-800 p-3 rounded-xl">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Bill Type</p>
-                    <p className="text-base font-semibold text-white capitalize">{ocrResult.bill_type}</p>
+                  <div className="bg-[var(--muted)] p-3 rounded-xl">
+                    <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Bill Type</p>
+                    <p className="text-base font-semibold text-[var(--foreground)] capitalize">{ocrResult.bill_type}</p>
                   </div>
-                  <div className="bg-slate-800 p-3 rounded-xl">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Bill Date</p>
-                    <p className="text-base font-semibold text-white">{ocrResult.extracted_date || 'Not found'}</p>
+                  <div className="bg-[var(--muted)] p-3 rounded-xl">
+                    <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Bill Date</p>
+                    <p className="text-base font-semibold text-[var(--foreground)]">{ocrResult.extracted_date || 'Not found'}</p>
                   </div>
                 </div>
 
                 {/* Extracted fields from Gemini */}
                 <div className="grid grid-cols-2 gap-3 mb-6">
                   <div className="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Units Consumed</p>
+                    <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">Units Consumed</p>
                     <p className="text-base font-bold text-emerald-400">
                       {ocrResult.units_consumed?.length > 0
                         ? `${ocrResult.units_consumed[0].value} ${ocrResult.units_consumed[0].unit}`
                         : 'Not found'}
                     </p>
                   </div>
-                  <div className="bg-slate-800 p-3 rounded-xl">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider mb-1">Amount Due</p>
-                    <p className="text-base font-semibold text-white">
+                  <div className="bg-[var(--muted)] p-3 rounded-xl">
+                    <p className="text-xs text-[var(--muted-foreground)] uppercase tracking-wider mb-1">
+                      Amount Due {ocrResult.currency ? <span className="text-[var(--muted-foreground)] normal-case font-normal">({ocrResult.currency})</span> : null}
+                    </p>
+                    <p className="text-base font-semibold text-[var(--foreground)]">
                       {ocrResult.amounts?.length > 0
-                        ? `₹${ocrResult.amounts[0].value.toLocaleString()}`
+                        ? `${ocrResult.currency_symbol ?? '$'}${ocrResult.amounts[0].value.toLocaleString()}`
                         : 'Not found'}
                     </p>
                   </div>
                 </div>
 
                 {/* Editor */}
-                <div className="border-t border-slate-800 pt-5 flex-1">
-                  <p className="text-sm font-semibold text-slate-300 mb-4">Review & Edit Before Logging</p>
+                <div className="border-t border-[var(--border)] pt-5 flex-1">
+                  <p className="text-sm font-semibold text-[var(--foreground)] mb-4">Review & Edit Before Logging</p>
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-slate-500 mb-1.5">Category</label>
+                        <label className="block text-xs text-[var(--muted-foreground)] mb-1.5">Category</label>
                         <select
                           value={editedCategory}
                           onChange={(e) => setEditedCategory(e.target.value)}
-                          className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-2 bg-[var(--muted)] border border-slate-700 rounded-lg text-[var(--foreground)] text-sm focus:outline-none focus:border-brand-500"
                         >
                           <option value="electricity">Electricity</option>
                           <option value="water">Water</option>
@@ -271,32 +275,32 @@ export default function OCRAnalyzer() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs text-slate-500 mb-1.5">Type</label>
+                        <label className="block text-xs text-[var(--muted-foreground)] mb-1.5">Type</label>
                         <input
                           type="text"
                           value={editedType}
                           onChange={(e) => setEditedType(e.target.value)}
-                          className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-2 bg-[var(--muted)] border border-slate-700 rounded-lg text-[var(--foreground)] text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <label className="block text-xs text-slate-500 mb-1.5">Value</label>
+                        <label className="block text-xs text-[var(--muted-foreground)] mb-1.5">Value</label>
                         <input
                           type="number"
                           value={editedValue}
                           onChange={(e) => setEditedValue(Number(e.target.value))}
-                          className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-2 bg-[var(--muted)] border border-slate-700 rounded-lg text-[var(--foreground)] text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs text-slate-500 mb-1.5">Unit</label>
+                        <label className="block text-xs text-[var(--muted-foreground)] mb-1.5">Unit</label>
                         <input
                           type="text"
                           value={editedUnit}
                           onChange={(e) => setEditedUnit(e.target.value)}
-                          className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-brand-500"
+                          className="w-full px-3 py-2 bg-[var(--muted)] border border-slate-700 rounded-lg text-[var(--foreground)] text-sm focus:outline-none focus:border-brand-500"
                         />
                       </div>
                     </div>
@@ -304,7 +308,7 @@ export default function OCRAnalyzer() {
                 </div>
 
                 {/* Actions */}
-                <div className="mt-6 pt-5 border-t border-slate-800 flex justify-end gap-3">
+                <div className="mt-6 pt-5 border-t border-[var(--border)] flex justify-end gap-3">
                   <Button variant="secondary" onClick={resetAll}>Cancel</Button>
                   <Button onClick={handleSave} disabled={isSaving || editedValue === ''}>
                     {isSaving ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving…</> : 'Log Activity'}

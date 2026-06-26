@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { ProtectedRoute, PublicRoute } from './routes';
+import { ProtectedRoute, PublicRoute, AdminRoute } from './routes';
 import AuthLayout from '../pages/auth/AuthLayout';
 import Login from '../pages/auth/Login';
 import Signup from '../pages/auth/Signup';
@@ -14,6 +14,18 @@ import Goals from '../pages/dashboard/Goals';
 import Community from '../pages/dashboard/Community';
 import OnboardingWizard from '../pages/onboarding/OnboardingWizard';
 import LandingPage from '../pages/landing/LandingPage';
+import DigitalTwin from '../pages/dashboard/DigitalTwin';
+import Profile from '../pages/dashboard/Profile';
+import Settings from '../pages/dashboard/Settings';
+
+// Admin Pages
+import AdminLayout from '../pages/admin/AdminLayout';
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import AdminUsers from '../pages/admin/AdminUsers';
+import AdminAnalytics from '../pages/admin/AdminAnalytics';
+import AdminReports from '../pages/admin/AdminReports';
+import AdminEvents from '../pages/admin/AdminEvents';
+import AdminEmissionFactors from '../pages/admin/AdminEmissionFactors';
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +65,26 @@ export const router = createBrowserRouter([
           { path: 'coach', element: <GreenCoach /> },
           { path: 'goals', element: <Goals /> },
           { path: 'community', element: <Community /> },
+          { path: 'twin', element: <DigitalTwin /> },
+          { path: 'profile', element: <Profile /> },
+          { path: 'settings', element: <Settings /> },
+        ],
+      },
+    ],
+  },
+  {
+    element: <AdminRoute />,
+    children: [
+      {
+        path: '/admin',
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <AdminDashboard /> },
+          { path: 'users', element: <AdminUsers /> },
+          { path: 'analytics', element: <AdminAnalytics /> },
+          { path: 'reports', element: <AdminReports /> },
+          { path: 'events', element: <AdminEvents /> },
+          { path: 'emission-factors', element: <AdminEmissionFactors /> },
         ],
       },
     ],

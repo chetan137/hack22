@@ -18,6 +18,8 @@ class OCRAnalyzeResponse(BaseModel):
     image_filename: str
     raw_text: str
     bill_type: str
+    currency: Optional[str] = None
+    currency_symbol: str = "$"
     amounts: list[dict]
     units_consumed: list[dict]
     extracted_date: Optional[str]

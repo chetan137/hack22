@@ -54,11 +54,11 @@ export default function OnboardingWizard() {
   const { control, handleSubmit, watch, formState: { errors } } = useForm<OnboardingFormValues>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: {
-      household_size: onboardingDraft.household_size || '',
-      location: onboardingDraft.location || '',
-      vehicle_type: onboardingDraft.vehicle_type || '',
-      diet_pattern: onboardingDraft.diet_pattern || '',
-      electricity_usage: onboardingDraft.electricity_usage || '',
+      household_size: onboardingDraft?.household_size || '',
+      location: onboardingDraft?.location || '',
+      vehicle_type: onboardingDraft?.vehicle_type || '',
+      diet_pattern: onboardingDraft?.diet_pattern || '',
+      electricity_usage: onboardingDraft?.electricity_usage || '',
     },
   });
 
@@ -104,10 +104,10 @@ export default function OnboardingWizard() {
   };
 
   const currentField = STEPS[currentStep].field as keyof typeof OPTIONS;
-  const currentOptions = OPTIONS[currentField];
+  const currentOptions = OPTIONS[currentField] || [];
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-2xl relative">
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-slate-800 rounded-full overflow-hidden -mt-12">

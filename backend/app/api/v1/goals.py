@@ -9,7 +9,7 @@ from app.api.deps import get_current_active_user
 from app.schemas.goal import GoalResponse, GoalCreate, GoalUpdate
 from app.services import goal as goal_service
 
-router = APIRouter(prefix="/goals", tags=["goals"])
+router = APIRouter()
 
 
 @router.get("/", response_model=list[GoalResponse])

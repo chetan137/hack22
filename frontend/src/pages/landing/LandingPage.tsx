@@ -15,7 +15,7 @@ const LandingPage = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <div className="min-h-screen bg-[#020817] text-slate-50 selection:bg-brand-500/30 overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-slate-50 selection:bg-brand-500/30 overflow-x-hidden">
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#020817]/50 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -88,7 +88,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Bento Box */}
-      <section id="features" className="py-32 relative z-10 bg-[#020817]">
+      <section id="features" className="py-32 relative z-10 bg-transparent">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-3xl lg:text-5xl font-bold mb-4">Powerful primitives for sustainability.</h2>
@@ -210,7 +210,7 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-[#020817] py-12 relative z-10">
+      <footer className="border-t border-white/10 bg-transparent py-12 relative z-10">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
           <div className="col-span-2">
             <Logo className="mb-4" />

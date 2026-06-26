@@ -1,4 +1,5 @@
 
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Car, Zap, Droplets, Trash2, ArrowRight } from 'lucide-react';
 import { GlassPanel } from '../ui/Card';
@@ -28,9 +29,12 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
     <GlassPanel className="p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-white">Recent Activities</h3>
-        <button className="text-sm font-medium text-brand-400 hover:text-brand-300 flex items-center transition-colors">
+        <Link
+          to="/dashboard/track"
+          className="text-sm font-medium text-brand-400 hover:text-brand-300 flex items-center transition-colors"
+        >
           View All <ArrowRight className="w-4 h-4 ml-1" />
-        </button>
+        </Link>
       </div>
 
       <div className="flex-1 overflow-y-auto pr-2 space-y-4">

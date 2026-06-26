@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { GlassPanel } from '@/components/ui/Card';
 
+import { useGamificationStore } from '@/store/gamificationStore';
+
 const activitySchema = z.object({
   category: z.string(),
   type: z.string().min(1, "Please select an activity type"),
@@ -57,6 +59,7 @@ export default function TrackActivity() {
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState('transportation');
   const [isSuccess, setIsSuccess] = useState(false);
+  const { checkAchievements } = useGamificationStore();
 
   const { control, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<ActivityFormValues>({
     resolver: zodResolver(activitySchema),
@@ -80,6 +83,8 @@ export default function TrackActivity() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dashboardStats'] });
       setIsSuccess(true);
+      // Give 25 points for logging an activity
+      checkAchievements(25);
       setTimeout(() => {
         setIsSuccess(false);
         navigate('/dashboard');
@@ -92,7 +97,7 @@ export default function TrackActivity() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 p-6 flex flex-col items-center pt-24">
+    <div className="min-h-screen bg-transparent p-6 flex flex-col items-center pt-24">
       <div className="w-full max-w-2xl relative">
         <Link to="/dashboard" className="absolute -top-12 left-0 text-sm font-medium text-slate-400 hover:text-white flex items-center transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard

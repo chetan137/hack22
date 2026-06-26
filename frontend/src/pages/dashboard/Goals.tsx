@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Target, Plus, CheckCircle2, XCircle, Trash2, Clock, Leaf } from 'lucide-react';
 import type { Goal, GoalStatus } from '../../types';
 import { apiClient } from '../../api/client';
-import { useAuthStore } from '../../store/authStore';
 
 export default function Goals() {
   const [goals, setGoals] = useState<Goal[]>([]);

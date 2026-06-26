@@ -23,9 +23,26 @@ export const ProtectedRoute = () => {
 };
 
 export const PublicRoute = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
 
   if (isAuthenticated) {
+    if (user?.role === 'admin' || user?.role === 'super_admin') {
+      return <Navigate to="/admin" replace />;
+    }
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return <Outlet />;
+};
+
+export const AdminRoute = () => {
+  const { isAuthenticated, user } = useAuthStore();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth/login" replace />;
+  }
+
+  if (!user || (user.role !== 'admin' && user.role !== 'super_admin')) {
     return <Navigate to="/dashboard" replace />;
   }
 

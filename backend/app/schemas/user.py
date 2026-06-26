@@ -18,6 +18,8 @@ class UserBase(BaseModel):
 
 class UserResponse(UserBase):
     id: uuid.UUID
+    role: str = "user"
+    has_completed_onboarding: bool = False
     created_at: datetime
     updated_at: datetime
 
