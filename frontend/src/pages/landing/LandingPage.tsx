@@ -97,16 +97,16 @@ const LandingPage = () => {
             {/* Floating stat cards */}
             <div className="hero-stats-row">
               <div className="hero-stat-card">
-                <div className="hero-stat-value">2.4M+</div>
-                <div className="hero-stat-label">Tonnes CO₂ Tracked</div>
+                <div className="hero-stat-value">1.3K+</div>
+                <div className="hero-stat-label">kg CO₂ Tracked</div>
               </div>
               <div className="hero-stat-card">
-                <div className="hero-stat-value">500+</div>
-                <div className="hero-stat-label">Companies Onboarded</div>
+                <div className="hero-stat-value">15+</div>
+                <div className="hero-stat-label">Active Users</div>
               </div>
               <div className="hero-stat-card">
                 <div className="hero-stat-value">98%</div>
-                <div className="hero-stat-label">Accuracy Rate</div>
+                <div className="hero-stat-label">AI Accuracy Rate</div>
               </div>
             </div>
           </motion.div>

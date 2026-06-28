@@ -99,6 +99,20 @@ const Signup = () => {
       transition={{ duration: 0.5 }}
     >
       <GlassPanel>
+        {/* Home Link */}
+        <div className="mb-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-1.5 text-sm text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Home
+          </Link>
+        </div>
+
         <div className="mb-8 text-center">
           <h2 className="text-3xl font-bold text-[var(--foreground)] mb-2">Create an account</h2>
           <p className="text-[var(--muted-foreground)]">Join Ecosense AI to get started</p>
