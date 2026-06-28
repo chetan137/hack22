@@ -26,7 +26,7 @@ const LandingPage = () => {
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
             <a href="#features" className="nav-link hover:text-white transition-colors">Features</a>
-            <a href="#demo" className="nav-link hover:text-white transition-colors">Platform</a>
+            <a href="#features" className="nav-link hover:text-white transition-colors">Platform</a>
             <a href="#pricing" className="nav-link hover:text-white transition-colors">Pricing</a>
           </div>
           <div className="flex items-center gap-4">
@@ -249,9 +249,9 @@ const LandingPage = () => {
                 <li className="flex gap-3 text-[var(--text-on-dark)]"><CheckIcon className="w-5 h-5 text-[var(--primary)] shrink-0" /> SLA guarantee</li>
                 <li className="flex gap-3 text-[var(--text-on-dark)]"><CheckIcon className="w-5 h-5 text-[var(--primary)] shrink-0" /> Audit logging</li>
               </ul>
-              <Link to="/auth/signup" className="w-full">
+              <a href="mailto:sales@ecosense.ai" className="w-full">
                 <Button variant="secondary" className="w-full">Contact Sales</Button>
-              </Link>
+              </a>
             </GlassPanel>
           </div>
         </div>
