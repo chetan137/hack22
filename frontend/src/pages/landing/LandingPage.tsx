@@ -54,22 +54,24 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="hero-section bg-transparent pt-20">
+      <section className="relative min-h-[calc(100vh-80px)] flex items-center pt-20 pb-10 overflow-hidden">
+        {/* Background blobs */}
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0 pointer-events-none hidden dark:block">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-brand-900/20 via-[#020817] to-[#020817]"></div>
         </motion.div>
-
-        {/* Background blobs for light theme */}
         <div className="absolute inset-0 z-0 pointer-events-none dark:hidden">
           <div className="hero-bg-blob-1"></div>
           <div className="hero-bg-blob-2"></div>
         </div>
 
-        <div className="hero-text-col w-full">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Column: Text */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full"
           >
             <div className="hero-badge inline-flex items-center gap-2 mb-6">
               <SparklesIcon className="w-4 h-4" />
@@ -108,20 +110,22 @@ const LandingPage = () => {
               </div>
             </div>
           </motion.div>
-        </div>
 
-        {/* 3D Canvas Container */}
-        <div className="hero-globe-col w-full h-full">
-          {/* Shifted camera X from 0 to -2 to push the globe to the right side of the screen */}
-          <Canvas camera={{ position: [-2.5, 0, 8], fov: 45 }} gl={{ alpha: true }}>
-            <Suspense fallback={null}>
-              <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 5]} intensity={1.5} />
-              <Earth />
-              <OrbitControls target={[0, 0, 0]} enableZoom={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} enablePan={false} />
-            </Suspense>
-          </Canvas>
+          {/* Right Column: 3D Globe */}
+          <div className="w-full flex items-center justify-center lg:justify-end h-[400px] lg:h-[600px] relative z-10">
+            <div className="w-full h-full max-w-[600px]">
+              <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ alpha: true }}>
+                <Suspense fallback={null}>
+                  <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+                  <ambientLight intensity={0.5} />
+                  <directionalLight position={[10, 10, 5]} intensity={1.5} />
+                  <Earth />
+                  <OrbitControls target={[0, 0, 0]} enableZoom={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} enablePan={false} />
+                </Suspense>
+              </Canvas>
+            </div>
+          </div>
+          
         </div>
       </section>
 
