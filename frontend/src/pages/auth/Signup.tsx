@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/Button';
 import { GlassPanel } from '@/components/ui/Card';
 import { authApi } from '@/api/auth';
 import { useAuthStore } from '@/store/authStore';
-import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 import { GoogleLogin } from '@react-oauth/google';
 import { useSettingsStore } from '@/store/settingsStore';
 
@@ -39,8 +38,6 @@ const Signup = () => {
       setIsLoading(false);
     }
   };
-
-  const { signInWithGoogle } = useGoogleAuth(handleGoogleToken);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -179,7 +176,7 @@ const Signup = () => {
             <GoogleLogin
               onSuccess={(credentialResponse) => {
                 if (credentialResponse.credential) {
-                  signInWithGoogle(credentialResponse.credential);
+                  handleGoogleToken(credentialResponse.credential);
                 }
               }}
               onError={() => {
