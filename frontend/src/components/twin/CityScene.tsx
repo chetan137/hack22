@@ -19,22 +19,22 @@ import { Perf } from 'r3f-perf';
 import { useTwinStore } from '@/store/twinStore';
 
 export const CityScene = () => {
-  const ecoScore = useTwinStore((state) => state.ecoScore);
+  const airQuality = useTwinStore((state) => state.airQuality);
 
-  // Phase 4 overall mood color grade based on ecoScore
+  // Phase 4 overall mood color grade based on airQuality (0-100)
   // Poor score: Warm orange, dusky, hazy
   // Excellent score: Bright blue, clean
   const fogColor = useMemo(() => {
-    const t = ecoScore / 100;
+    const t = Math.max(0, Math.min(1, airQuality / 100));
     return new THREE.Color().lerpColors(
       new THREE.Color('#78350f'), // amber-900 for poor
       new THREE.Color('#38bdf8'), // sky-400 for excellent
       t
     );
-  }, [ecoScore]);
+  }, [airQuality]);
 
-  // Fog density is higher when air quality is low (which corresponds to low ecoScore)
-  const fogDensity = 0.005 + ((100 - ecoScore) / 100) * 0.015;
+  // Fog density is higher when air quality is low
+  const fogDensity = 0.005 + ((100 - airQuality) / 100) * 0.015;
 
   return (
     <Canvas
@@ -58,7 +58,7 @@ export const CityScene = () => {
           castShadow
           position={[100, 100, 50]}
           intensity={1.5}
-          color={ecoScore < 50 ? '#fbbf24' : '#ffffff'} // Warmer sun for poor scores
+          color={airQuality < 50 ? '#fbbf24' : '#ffffff'} // Warmer sun for poor scores
           shadow-mapSize={[2048, 2048]}
         >
           <orthographicCamera attach="shadow-camera" args={[-100, 100, 100, -100, 1, 400]} />
