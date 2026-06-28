@@ -112,13 +112,14 @@ const LandingPage = () => {
 
         {/* 3D Canvas Container */}
         <div className="hero-globe-col w-full h-full">
-          <Canvas camera={{ position: [0, 0, 8], fov: 45 }} gl={{ alpha: true }}>
+          {/* Shifted camera X from 0 to -2 to push the globe to the right side of the screen */}
+          <Canvas camera={{ position: [-2.5, 0, 8], fov: 45 }} gl={{ alpha: true }}>
             <Suspense fallback={null}>
               <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
               <ambientLight intensity={0.5} />
               <directionalLight position={[10, 10, 5]} intensity={1.5} />
               <Earth />
-              <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} enablePan={false} />
+              <OrbitControls target={[0, 0, 0]} enableZoom={false} autoRotate autoRotateSpeed={0.5} maxPolarAngle={Math.PI / 2} minPolarAngle={Math.PI / 2} enablePan={false} />
             </Suspense>
           </Canvas>
         </div>
